@@ -6,5 +6,6 @@ todo.
   1. make sure it works with any picture size
   2. fix the first row colors
   3. put in comments
+  4. fix the file paths
   
   
