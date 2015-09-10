@@ -1,5 +1,5 @@
 # WebImgMk
-This program will take a givin image and make a mosaic webpage of that image
+This program will take a givin image and make a mosaic webpage of that image.
 (this is just a small personal project, this is my first dive into CSS)
 
 todo.
