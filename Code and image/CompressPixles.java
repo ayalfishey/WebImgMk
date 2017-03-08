@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package website.image.maker;
+
 
 /**
  *
@@ -18,25 +18,28 @@ public class CompressPixles {
         int newcolor = 0;
         int cpixle =0;
         int[][] compressedp = new int[(sizew / 5)][(sizeh / 5)];
+        
         for (int i = 0; i < sizeh; i = i + 5) {
 //            System.out.print("i="+i+", sizew/5="+sizew/5+", sizeh/5="+sizeh/5+"\n");
             counter = 0;
             newcolor = 0;
             for (int x = 0; x < sizew; x++) {
-                if (x % 5 == 4 || endofh==true) {
+                if (x % 6 == 5 || endofh==true) {
                     compressedp[counter++][i / 5] = newcolor / cpixle;
                     newcolor = 0;
                     cpixle=0;
                     endofh=false;
                 }
                 for (y = i; y < i + 5; y++) {
-                    newcolor = newcolor + color[x][y];
-                    cpixle++;
-                    //Check if it goes out of bounds
-                    if (y+1>sizeh){
+                    if (y>=sizeh){
                         endofh=true;
                         break;
                     }
+                    newcolor = newcolor + color[x][y];
+                    cpixle++;
+                    //Check if it goes out of bounds
+
+
                 }
             }
         }

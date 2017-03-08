@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package website.image.maker;
 
 import java.io.*;
 import java.nio.file.*;
@@ -20,12 +19,26 @@ public class WebsiteImageMaker {
      * @param args the command line arguments
      */
     public static void main(String args[]) throws IOException {
-        //picture derectory
-        File file = new File("D:" + System.getProperty("file.separator") + "work"
-                + System.getProperty("file.separator") + "Website Image Maker" + System.getProperty("file.separator")
-                + "src" + System.getProperty("file.separator") + "website" + System.getProperty("file.separator")
-                + "image" + System.getProperty("file.separator") + "maker" + System.getProperty("file.separator")
-                + "orc.jpg");
+        //picture directory
+    	
+    	String filePath = "D:" + System.getProperty("file.separator") + "EclipseWorkspace"
+                + System.getProperty("file.separator") + "WebImgMk" + System.getProperty("file.separator")
+                + "src" + System.getProperty("file.separator") + System.getProperty("file.separator")
+                + "me.jpg";
+    	
+    	String outputPath = "D:" + System.getProperty("file.separator") + "EclipseWorkspace"
+                + System.getProperty("file.separator") + "WebImgMk" + System.getProperty("file.separator")
+                + "src" + System.getProperty("file.separator") + System.getProperty("file.separator")
+                + "me2.jpg";
+    	
+    	int scaledWidth = 200;
+    	int scaledHeight = 200;
+    	
+    	
+    	ResizeImg.resize(filePath, outputPath, scaledWidth, scaledHeight);
+    	
+        File file = new File(outputPath);
+        
         BufferedImage image = ImageIO.read(file);
         // int y=0;
         // int x=0;
@@ -43,6 +56,8 @@ public class WebsiteImageMaker {
                 blue[x][y] = clr & 0x000000ff;
             }
         }
+        
+/*
         int cwidth= width/5;
         int cheight = height/5;
         int[][] cred = new int[cwidth][cheight];
@@ -51,9 +66,10 @@ public class WebsiteImageMaker {
         cred = CompressPixles.CompressColors(red, width, height);
         cgreen = CompressPixles.CompressColors(green, width, height);
         cblue = CompressPixles.CompressColors(blue, width, height);
-
+*/
+        
         //make a new htm file
-        File webp = new File("D:\\work\\Website Image Maker\\src\\website\\image\\maker\\webp.htm");
+        File webp = new File("D:\\EclipseWorkspace\\WebImgMk\\src\\webp.htm");
         //New line
         String newLineChar = System.getProperty("line.separator");
         if (!webp.exists()) {
@@ -68,25 +84,25 @@ public class WebsiteImageMaker {
          */
         //css code needed for tinting
         bw.write("<HTML>" + newLineChar + "<HEAD>" + newLineChar + "<STYLE>" + newLineChar + "img { display: block;}" + newLineChar + "div {" + newLineChar + "  line-height:0;" + newLineChar + "}" + newLineChar + newLineChar
-                + ".warp {" + newLineChar + "     overflow: hidden;" + newLineChar + "    width: " + (5 * (width/5)) + "px;" + newLineChar + "     margin: 0 auto;" + newLineChar + "}" + newLineChar + newLineChar
+                + ".warp {" + newLineChar + "     overflow: hidden;" + newLineChar + "    width: " + (5 * (width)) + "px;" + newLineChar + "     margin: 0 auto;" + newLineChar + "}" + newLineChar + newLineChar
                 + ".ad {" + newLineChar + "      position: relative;" + newLineChar + "      float: left;" + newLineChar + "     margin-right: -40px;" + newLineChar + "      margin-bottom: -16px;" + newLineChar + "     cursor: pointer;" + newLineChar + "}" + newLineChar
                 + ".ad:before {" + newLineChar + "   content:\"\";" + newLineChar + "  display: block;" + newLineChar + "  position: absolute;" + newLineChar + "  top: 0;" + newLineChar + "  bottom: 0;" + newLineChar + "   left: 0;" + newLineChar + "right: 0;" + newLineChar + "   background: rgba(255,0,0,0.5);" + newLineChar + "}" + newLineChar);
         //make a tint for each pixle
-        for (int y = 0; y < (cheight); y++) {
-            for (int x = 0; x < (cwidth); x++) {
+        for (int y = 0; y < (height); y++) {
+            for (int x = 0; x < (width); x++) {
 //                System.out.println("x="+x+",y="+y);
 //                System.out.println("w="+cwidth+" h="+cheight);
-                bw.write(".ad" + ((cwidth) * y + x) + ":before { background: rgba(" + cred[x][y] + "," + cgreen[x][y] + "," + cblue[x][y] + ",0.5);" + "}");
+                bw.write(".ad" + ((width) * y + x) + ":before { background: rgba(" + red[x][y] + "," + green[x][y] + "," + blue[x][y] + ",0.5);" + "}");
                 bw.newLine();
 
             }
             bw.newLine();
         }
-        bw.write("</STYLE>" + newLineChar + "</HEAD>" + newLineChar + "<BODY>" + newLineChar + "<div class=\"warp\">" + newLineChar + newLineChar + " <figure class=\"ad\">" + newLineChar + "      <img src=\"http://cdn.impressivewebs.com/2011-11/greece001.jpg\" alt=\"\" width=\"5\" height=\"5\" />" + newLineChar + "    </figure>" + newLineChar);
+        bw.write("</STYLE>" + newLineChar + "</HEAD>" + newLineChar + "<BODY>" + newLineChar + "<div class=\"warp\">" + newLineChar + newLineChar + " <figure class=\"ad ad" + ((width) * 0 + 0) +"\">" + newLineChar + "      <img src=\"http://cdn.impressivewebs.com/2011-11/greece001.jpg\" alt=\"\" width=\"5\" height=\"5\" />" + newLineChar + "    </figure>" + newLineChar);
         //make each img and give it a tint
-        for (int y = 0; y < cheight; y++) {
-            for (int x = 0; x < cwidth; x++) {
-                bw.write("<figure class=\"ad ad" + ((cwidth) * y + x) + "\">" + newLineChar + "      <img src=\"http://cdn.impressivewebs.com/2011-11/greece006.jpg\" alt=\"\" width=\"5\" height=\"5\" />" + newLineChar + "    </figure>");
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                bw.write("<figure class=\"ad ad" + ((width) * y + x) + "\">" + newLineChar + "      <img src=\"http://cdn.impressivewebs.com/2011-11/greece006.jpg\" alt=\"\" width=\"5\" height=\"5\" />" + newLineChar + "    </figure>");
                 bw.newLine();
             }
             bw.write("<BR>");
