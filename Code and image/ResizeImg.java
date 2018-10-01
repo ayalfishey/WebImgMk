@@ -15,18 +15,15 @@ public class ResizeImg {
      * @param scaledHeight absolute height in pixels
      * @throws IOException
      */
-    public static void resize(String inputImagePath,
+    public static void resize(BufferedImage inputImage,
             String outputImagePath, int scaledWidth, int scaledHeight)
             throws IOException {
-        // reads input image
-        File inputFile = new File(inputImagePath);
-        BufferedImage inputImage = ImageIO.read(inputFile);
- 
-        // creates output image
+
+        // create output image
         BufferedImage outputImage = new BufferedImage(scaledWidth,
                 scaledHeight, inputImage.getType());
  
-        // scales the input image to the output image
+        //uses scaled size on input image to create the output 
         Graphics2D g2d = outputImage.createGraphics();
         g2d.drawImage(inputImage, 0, 0, scaledWidth, scaledHeight, null);
         g2d.dispose();
